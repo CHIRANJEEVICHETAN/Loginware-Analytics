@@ -65,7 +65,7 @@ export default function LandingPage() {
               <div className="flex items-center justify-center">
                 <div className="relative w-full h-[400px] overflow-hidden rounded-xl">
                   <Image
-                    src="/placeholder.svg?height=400&width=600"
+                    src="/Machine.jpg"
                     alt="Dashboard Preview"
                     fill
                     className="object-cover"
