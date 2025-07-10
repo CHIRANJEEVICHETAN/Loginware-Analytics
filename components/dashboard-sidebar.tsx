@@ -41,6 +41,31 @@ export function DashboardSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent>
+        {/* Company Section */}
+        <SidebarGroup className="sidebar-company-group">
+          <SidebarGroupLabel>Company</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/dashboard/company"}>
+                  <Link href="/dashboard/company">
+                    <Home className="h-4 w-4" />
+                    <span>Company Master</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/dashboard/shift"}>
+                  <Link href="/dashboard/shift">
+                    <Clock className="h-4 w-4" />
+                    <span>Shift</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarSeparator />
         <SidebarGroup className="sidebar-dashboard-group">
           <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
           <SidebarGroupContent>
