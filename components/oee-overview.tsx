@@ -100,14 +100,23 @@ export function OeeOverview() {
                 data={oeeComponentsData}
                 margin={{
                   top: 20,
-                  right: 0,
-                  left: 20,
+                  right: 5,
+                  left: 28,
                   bottom: 5,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" domain={[0, 100]} />
-                <YAxis dataKey="name" type="category" />
+                <YAxis 
+                  dataKey="name" 
+                  type="category" 
+                  tick={{ 
+                    dx: -3,
+                    textAnchor: 'end',
+                    fontSize: 12,
+                    fontWeight: 600
+                  }}
+                />
                 <Tooltip formatter={(value) => [`${value}%`, "Value"]} />
                 <Bar dataKey="value" fill="#3b82f6" name="Percentage" />
               </BarChart>
