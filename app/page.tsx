@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -28,10 +27,10 @@ export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col w-full relative overflow-hidden bg-white dark:bg-slate-950">
       {/* Modern Tech Background */}
-      <ModernTechBackground className="opacity-60" />
-      
+      <ModernTechBackground className="opacity-60 z-0" />
+
       {/* Splash Cursor Effect */}
-      <SplashCursor 
+      <SplashCursor
         SIM_RESOLUTION={128}
         DYE_RESOLUTION={1024}
         CAPTURE_RESOLUTION={512}
@@ -47,7 +46,7 @@ export default function LandingPage() {
         BACK_COLOR={{ r: 0.5, g: 0, b: 0 }}
         TRANSPARENT={true}
       />
-      
+
       {/* Modern Glassmorphic Navigation */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -64,11 +63,11 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1 relative z-10">
         {/* Hero Section with Lamp Effect */}
-        <section className="w-full relative">
+        <section className="w-full relative z-10">
           <LampContainer className="bg-transparent">
             {/* Empty space for lamp effect to show properly */}
             <div className="h-96"></div>
-            
+
             {/* Content positioned below the lamp */}
             <div className="flex flex-col items-center justify-center space-y-8 text-center mt-16">
               <motion.div
@@ -116,7 +115,7 @@ export default function LandingPage() {
                   }}
                   className="max-w-[600px] mx-auto text-lg text-slate-700 dark:text-slate-300 md:text-xl leading-relaxed"
                 >
-                  Monitor machine performance, analyze production metrics, and receive 
+                  Monitor machine performance, analyze production metrics, and receive
                   <span className="font-semibold text-cyan-600 dark:text-cyan-400"> predictive maintenance alerts </span>
                   in real-time with our advanced Industry 4.0 platform.
                 </motion.p>
@@ -131,16 +130,16 @@ export default function LandingPage() {
                 }}
                 className="flex flex-col gap-3 min-[400px]:flex-row justify-center"
               >
-              <Link href="/login">
+                <Link href="/login">
                   <Button size="lg" className="gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 btn-modern pulse-glow rounded-full">
-                      Get Started <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                  <Link href="#features">
+                    Get Started <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="#features">
                   <Button size="lg" variant="outline" className="backdrop-blur-sm border-cyan-600 dark:border-cyan-500/20 hover:bg-cyan-600/10 dark:hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 rounded-full">
-                      Learn More
-                    </Button>
-                  </Link>
+                    Learn More
+                  </Button>
+                </Link>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
@@ -168,7 +167,7 @@ export default function LandingPage() {
         {/* Features Section */}
         <section
           id="features"
-          className="w-full py-12 md:py-24 lg:py-32 relative bg-slate-50 dark:bg-slate-950"
+          className="w-full py-12 md:py-24 lg:py-32 relative"
         >
           <div className="container relative z-20">
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
@@ -182,7 +181,7 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-            
+
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-3">
               <div className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 modern-card industry-card">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -192,7 +191,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-3 gradient-text-blue">Real-time Monitoring</h3>
                   <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                    Track machine status, cycle counts, and operator details with 
+                    Track machine status, cycle counts, and operator details with
                     <span className="font-semibold text-blue-600 dark:text-blue-400"> real-time precision</span>.
                   </p>
                 </div>
@@ -206,7 +205,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-3 gradient-text-green">Performance Analytics</h3>
                   <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                    Visualize utilization, efficiency, and downtime with 
+                    Visualize utilization, efficiency, and downtime with
                     <span className="font-semibold text-green-600 dark:text-green-400"> advanced AI-powered charts</span>.
                   </p>
                 </div>
@@ -220,7 +219,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-3 gradient-text-purple">Predictive Maintenance</h3>
                   <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                    Receive AI-powered alerts for potential failures 
+                    Receive AI-powered alerts for potential failures
                     <span className="font-semibold text-purple-600 dark:text-purple-400"> before they occur</span>.
                   </p>
                 </div>
@@ -234,7 +233,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">Centralized Database</h3>
                   <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                    All systems connected via a unified database for 
+                    All systems connected via a unified database for
                     <span className="font-semibold text-orange-600 dark:text-orange-400"> seamless integration</span>.
                   </p>
                 </div>
@@ -248,7 +247,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-3 gradient-text-blue">OEE Analysis</h3>
                   <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                    Track Overall Equipment Effectiveness at 
+                    Track Overall Equipment Effectiveness at
                     <span className="font-semibold text-indigo-600 dark:text-indigo-400"> all levels</span>.
                   </p>
                 </div>
@@ -262,7 +261,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">Secure Access</h3>
                   <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                    Role-based access control for 
+                    Role-based access control for
                     <span className="font-semibold text-teal-600 dark:text-teal-400"> all team members</span>.
                   </p>
                 </div>
@@ -272,7 +271,7 @@ export default function LandingPage() {
         </section>
 
         {/* Stats Section */}
-        <section className="w-full py-12 md:py-24 relative bg-slate-50 dark:bg-slate-950">
+        <section className="w-full py-12 md:py-24 relative">
           <div className="container relative z-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
