@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import SplashCursor from "@/components/splash-cursor"
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -35,11 +36,29 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col w-full">
-      <div className="absolute right-4 top-4">
+    <div className="flex min-h-screen flex-col w-full relative overflow-hidden">
+      {/* Splash Cursor Effect */}
+      <SplashCursor 
+        SIM_RESOLUTION={128}
+        DYE_RESOLUTION={1024}
+        CAPTURE_RESOLUTION={512}
+        DENSITY_DISSIPATION={3.5}
+        VELOCITY_DISSIPATION={2}
+        PRESSURE={0.1}
+        PRESSURE_ITERATIONS={20}
+        CURL={3}
+        SPLAT_RADIUS={0.2}
+        SPLAT_FORCE={6000}
+        SHADING={true}
+        COLOR_UPDATE_SPEED={10}
+        BACK_COLOR={{ r: 0.5, g: 0, b: 0 }}
+        TRANSPARENT={true}
+      />
+      
+      <div className="absolute right-4 top-4 z-50">
         <ThemeToggle />
       </div>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen relative z-10">
         <div className="hidden md:flex w-1/2 bg-primary/10 flex-col justify-center items-center p-10">
           <div className="max-w-md">
             <div className="flex items-center gap-2 mb-8">

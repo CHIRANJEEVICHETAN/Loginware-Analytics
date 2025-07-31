@@ -9,6 +9,7 @@ import { Notifications } from "@/components/notifications"
 import { Separator } from "@/components/ui/separator"
 import { TourGuide } from "@/components/tour-guide"
 import { AnimatePresence } from "@/components/ui/motion"
+import { AnimatedBackground } from "@/components/animated-background"
 import { motion } from "framer-motion"
 import { Bell } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -35,11 +36,14 @@ export default function DashboardLayout({
       <ClientOnly>
         <TourGuide />
       </ClientOnly>
-      <div className="flex min-h-screen w-full">
+      <div className="flex min-h-screen w-full relative">
+        {/* Animated Background for App */}
+        <AnimatedBackground variant="app" />
+        
         <DashboardSidebar />
-        <SidebarInset className="flex flex-col flex-1 w-full">
+        <SidebarInset className="flex flex-col flex-1 w-full relative z-10">
           <motion.div 
-            className="flex h-16 items-center justify-between gap-4 border-b bg-background px-3 md:px-6"
+            className="flex h-16 items-center justify-between gap-4 border-b bg-background/80 backdrop-blur-xl px-3 md:px-6"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
@@ -62,7 +66,7 @@ export default function DashboardLayout({
               <UserNav className="user-nav" />
             </div>
           </motion.div>
-          <main className="flex-1 w-full p-3 md:p-6 overflow-hidden">
+          <main className="flex-1 w-full p-3 md:p-6 overflow-hidden relative z-10">
             <AnimatePresence mode="wait">
               {children}
             </AnimatePresence>

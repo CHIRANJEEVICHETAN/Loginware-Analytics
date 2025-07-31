@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -8,171 +10,295 @@ import {
   Database,
   Gauge,
   LineChart,
+  Zap,
+  Shield,
+  TrendingUp,
 } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { LampContainer } from "@/components/ui/lamp";
+import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+import Navigation from "@/components/landing-navbar";
+import SplashCursor from "@/components/splash-cursor";
+import ModernTechBackground from "@/components/modern-tech-background";
 
 export default function LandingPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <div className="flex min-h-screen flex-col w-full">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-          <div className="flex gap-2 items-center">
-            <div className="bg-orange-500 p-1.5 rounded">
-              <BarChart3 className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl font-bold">Loginware Analytics</span>
-          </div>
-          <div className="flex flex-1 items-center justify-end space-x-4">
-            <ThemeToggle />
-            <nav className="flex items-center space-x-2">
+    <div className="flex min-h-screen flex-col w-full relative overflow-hidden bg-white dark:bg-slate-950">
+      {/* Modern Tech Background */}
+      <ModernTechBackground className="opacity-60" />
+      
+      {/* Splash Cursor Effect */}
+      <SplashCursor 
+        SIM_RESOLUTION={128}
+        DYE_RESOLUTION={1024}
+        CAPTURE_RESOLUTION={512}
+        DENSITY_DISSIPATION={3.5}
+        VELOCITY_DISSIPATION={2}
+        PRESSURE={0.1}
+        PRESSURE_ITERATIONS={20}
+        CURL={3}
+        SPLAT_RADIUS={0.2}
+        SPLAT_FORCE={6000}
+        SHADING={true}
+        COLOR_UPDATE_SPEED={10}
+        BACK_COLOR={{ r: 0.5, g: 0, b: 0 }}
+        TRANSPARENT={true}
+      />
+      
+      {/* Modern Glassmorphic Navigation */}
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 3.0, // Reduced from 5.0
+          duration: 0.8, // Reduced from 1.2
+          ease: "easeOut",
+        }}
+      >
+        <Navigation />
+      </motion.div>
+
+      {/* Main Content */}
+      <main className="flex-1 relative z-10">
+        {/* Hero Section with Lamp Effect */}
+        <section className="w-full relative">
+          <LampContainer className="bg-transparent">
+            {/* Empty space for lamp effect to show properly */}
+            <div className="h-96"></div>
+            
+            {/* Content positioned below the lamp */}
+            <div className="flex flex-col items-center justify-center space-y-8 text-center mt-16">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 1.8, // Reduced from 2.5
+                  duration: 0.8, // Reduced from 1
+                  ease: "easeOut",
+                }}
+                className="space-y-4 text-center"
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    delay: 2.0, // Reduced from 2.7
+                    duration: 0.5, // Reduced from 0.6
+                    ease: "easeOut",
+                  }}
+                  className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300"
+                >
+                  <Zap className="mr-1 h-3 w-3" />
+                  Industry 4.0 Ready
+                </motion.div>
+                <motion.h1
+                  initial={{ opacity: 0, y: 100 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 2.3, // Reduced from 3.0
+                    duration: 1.0, // Reduced from 1.2
+                    ease: "easeOut",
+                  }}
+                  className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none bg-gradient-to-br from-slate-900 to-slate-600 dark:from-slate-300 dark:to-slate-500 py-4 bg-clip-text text-transparent"
+                >
+                  Real-time Machine Analytics
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 2.7, // Reduced from 3.5
+                    duration: 0.8, // Reduced from 1
+                    ease: "easeOut",
+                  }}
+                  className="max-w-[600px] mx-auto text-lg text-slate-700 dark:text-slate-300 md:text-xl leading-relaxed"
+                >
+                  Monitor machine performance, analyze production metrics, and receive 
+                  <span className="font-semibold text-cyan-600 dark:text-cyan-400"> predictive maintenance alerts </span>
+                  in real-time with our advanced Industry 4.0 platform.
+                </motion.p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 3.2, // Reduced from 4.0
+                  duration: 0.8, // Reduced from 1
+                  ease: "easeOut",
+                }}
+                className="flex flex-col gap-3 min-[400px]:flex-row justify-center"
+              >
               <Link href="/login">
-                <Button variant="outline">Login</Button>
-              </Link>
-              <Link href="/login">
-                <Button>Get Started</Button>
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                    Real-time Machine Analytics for Industry 4.0
-                  </h1>
-                  <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                    Monitor machine performance, analyze production metrics, and
-                    receive predictive maintenance alerts in real-time.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Link href="/login">
-                    <Button size="lg" className="gap-1">
+                  <Button size="lg" className="gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 btn-modern pulse-glow rounded-full">
                       Get Started <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>
                   <Link href="#features">
-                    <Button size="lg" variant="outline">
+                  <Button size="lg" variant="outline" className="backdrop-blur-sm border-cyan-600 dark:border-cyan-500/20 hover:bg-cyan-600/10 dark:hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 rounded-full">
                       Learn More
                     </Button>
                   </Link>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 3.7, // Reduced from 4.5
+                  duration: 0.8, // Reduced from 1
+                  ease: "easeOut",
+                }}
+                className="flex items-center gap-6 text-sm text-slate-600 dark:text-slate-400 justify-center"
+              >
+                <div className="flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-green-600 dark:text-green-400" />
+                  <span>Enterprise Security</span>
                 </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="relative w-full h-[400px] overflow-hidden rounded-xl">
-                  <Image
-                    src="/Machine.jpg"
-                    alt="Dashboard Preview"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+                  <span>99.9% Uptime</span>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </LampContainer>
         </section>
 
+        {/* Features Section */}
         <section
           id="features"
-          className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900"
+          className="w-full py-12 md:py-24 lg:py-32 relative bg-slate-50 dark:bg-slate-950"
         >
-          <div className="container">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          <div className="container relative z-20">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+              <div className="space-y-4">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-gradient-to-r from-gray-900 to-blue-800 bg-clip-text text-transparent dark:from-white dark:to-blue-200">
                   Comprehensive Analytics Suite
                 </h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                <p className="max-w-[900px] text-slate-600 dark:text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Our integrated platform connects all your Industry 4.0 systems
                   for seamless data collection, processing, and visualization.
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <Gauge className="h-6 w-6 text-primary" />
+            
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-3">
+              <div className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 modern-card industry-card">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 p-4 mb-6 w-fit shadow-lg glow-blue">
+                    <Gauge className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 gradient-text-blue">Real-time Monitoring</h3>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Track machine status, cycle counts, and operator details with 
+                    <span className="font-semibold text-blue-600 dark:text-blue-400"> real-time precision</span>.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Real-time Monitoring</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  Track machine status, cycle counts, and operator details in
-                  real-time.
-                </p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <LineChart className="h-6 w-6 text-primary" />
+
+              <div className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 modern-card industry-card">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="rounded-full bg-gradient-to-r from-green-500 to-emerald-500 p-4 mb-6 w-fit shadow-lg glow-green">
+                    <LineChart className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 gradient-text-green">Performance Analytics</h3>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Visualize utilization, efficiency, and downtime with 
+                    <span className="font-semibold text-green-600 dark:text-green-400"> advanced AI-powered charts</span>.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Performance Analytics</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  Visualize utilization, efficiency, and downtime with advanced
-                  charts.
-                </p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <Cpu className="h-6 w-6 text-primary" />
+
+              <div className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 modern-card industry-card">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-4 mb-6 w-fit shadow-lg glow-purple">
+                    <Cpu className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 gradient-text-purple">Predictive Maintenance</h3>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Receive AI-powered alerts for potential failures 
+                    <span className="font-semibold text-purple-600 dark:text-purple-400"> before they occur</span>.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Predictive Maintenance</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  Receive AI-powered alerts for potential failures before they
-                  occur.
-                </p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <Database className="h-6 w-6 text-primary" />
+
+              <div className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 modern-card industry-card">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="rounded-full bg-gradient-to-r from-orange-500 to-red-500 p-4 mb-6 w-fit shadow-lg glow-orange">
+                    <Database className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">Centralized Database</h3>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    All systems connected via a unified database for 
+                    <span className="font-semibold text-orange-600 dark:text-orange-400"> seamless integration</span>.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Centralized Database</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  All systems connected via a unified database for seamless
-                  integration.
-                </p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <BarChart3 className="h-6 w-6 text-primary" />
+
+              <div className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 modern-card industry-card">
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="rounded-full bg-gradient-to-r from-indigo-500 to-blue-500 p-4 mb-6 w-fit shadow-lg glow-blue">
+                    <BarChart3 className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 gradient-text-blue">OEE Analysis</h3>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Track Overall Equipment Effectiveness at 
+                    <span className="font-semibold text-indigo-600 dark:text-indigo-400"> all levels</span>.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">OEE Analysis</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  Track Overall Equipment Effectiveness at plant, machine,
-                  shift, and operator levels.
-                </p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
-                <div className="rounded-full bg-primary/10 p-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6 text-primary"
-                  >
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                  </svg>
+
+              <div className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 modern-card industry-card">
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 p-4 mb-6 w-fit shadow-lg glow-teal">
+                    <Shield className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">Secure Access</h3>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Role-based access control for 
+                    <span className="font-semibold text-teal-600 dark:text-teal-400"> all team members</span>.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold">Secure Access</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  Role-based access control for operators, supervisors,
-                  maintenance teams, and managers.
-                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="w-full py-12 md:py-24 relative bg-slate-50 dark:bg-slate-950">
+          <div className="container relative z-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">99.9%</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Uptime</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">24/7</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Monitoring</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">50+</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Integrations</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">1000+</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Machines</div>
               </div>
             </div>
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full border-t items-center justify-center">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+
+      {/* Footer */}
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm items-center justify-center relative z-10">
+        <p className="text-xs text-slate-600 dark:text-slate-400">
           © 2024 Loginware Softtec PVT LTD. All rights reserved.
         </p>
       </footer>
