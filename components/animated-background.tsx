@@ -64,8 +64,8 @@ export function AnimatedBackground({ variant = "app", className = "" }: Animated
         pulseSpeed: Math.random() * 0.02 + 0.01,
         pulseOffset: Math.random() * Math.PI * 2,
         color: isDark
-          ? `rgba(${Math.floor(Math.random() * 100) + 100}, ${Math.floor(Math.random() * 100) + 150}, ${Math.floor(Math.random() * 55) + 200}, ${Math.random() * 0.4 + 0.2})`
-          : `rgba(${Math.floor(Math.random() * 50) + 50}, ${Math.floor(Math.random() * 50) + 100}, ${Math.floor(Math.random() * 100) + 150}, ${Math.random() * 0.3 + 0.1})`,
+          ? `rgba(${Math.floor(Math.random() * 100) + 100}, ${Math.floor(Math.random() * 100) + 150}, ${Math.floor(Math.random() * 55) + 200}, ${(Math.random() * 0.4 + 0.2).toFixed(3)})`
+          : `rgba(${Math.floor(Math.random() * 50) + 50}, ${Math.floor(Math.random() * 50) + 100}, ${Math.floor(Math.random() * 100) + 150}, ${(Math.random() * 0.3 + 0.1).toFixed(3)})`,
       })
     }
 
@@ -132,8 +132,8 @@ export function AnimatedBackground({ variant = "app", className = "" }: Animated
           )
           
           const glowColor = isDark 
-            ? `rgba(100, 200, 255, ${currentOpacity * 0.3})`
-            : `rgba(50, 100, 200, ${currentOpacity * 0.2})`
+            ? `rgba(100, 200, 255, ${(currentOpacity * 0.3).toFixed(3)})`
+            : `rgba(50, 100, 200, ${(currentOpacity * 0.2).toFixed(3)})`
           
           glowGradient.addColorStop(0, glowColor)
           glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
@@ -147,7 +147,7 @@ export function AnimatedBackground({ variant = "app", className = "" }: Animated
         // Draw particle
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, currentSize, 0, Math.PI * 2)
-        ctx.fillStyle = particle.color.replace(/[\d.]+\)$/, `${currentOpacity})`)
+        ctx.fillStyle = particle.color.replace(/[\d.]+\)$/, `${currentOpacity.toFixed(3)})`)
         ctx.fill()
 
         // Draw connections with enhanced effects
@@ -166,11 +166,11 @@ export function AnimatedBackground({ variant = "app", className = "" }: Animated
             )
             
             const connectionColor = isDark 
-              ? `rgba(100, 200, 255, ${opacity})`
-              : `rgba(50, 100, 200, ${opacity * 0.7})`
+              ? `rgba(100, 200, 255, ${opacity.toFixed(3)})`
+              : `rgba(50, 100, 200, ${(opacity * 0.7).toFixed(3)})`
             
             lineGradient.addColorStop(0, connectionColor)
-            lineGradient.addColorStop(0.5, connectionColor.replace(/[\d.]+\)$/, `${opacity * 1.5})`))
+            lineGradient.addColorStop(0.5, connectionColor.replace(/[\d.]+\)$/, `${(opacity * 1.5).toFixed(3)})`))
             lineGradient.addColorStop(1, connectionColor)
             
             ctx.beginPath()
@@ -193,8 +193,8 @@ export function AnimatedBackground({ variant = "app", className = "" }: Animated
           ctx.beginPath()
           ctx.arc(x, y, size, 0, Math.PI * 2)
           ctx.fillStyle = isDark 
-            ? `rgba(255, 255, 255, ${0.1 + Math.sin(time * 0.003 + i) * 0.05})`
-            : `rgba(0, 0, 0, ${0.05 + Math.sin(time * 0.003 + i) * 0.03})`
+            ? `rgba(255, 255, 255, ${(0.1 + Math.sin(time * 0.003 + i) * 0.05).toFixed(3)})`
+            : `rgba(0, 0, 0, ${(0.05 + Math.sin(time * 0.003 + i) * 0.03).toFixed(3)})`
           ctx.fill()
         }
       }
