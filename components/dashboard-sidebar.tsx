@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useState } from "react"
 import { BarChart3, Bell, Clock, Cpu, Gauge, Home, LineChart, AlertTriangle, Settings, User, Users, Wrench } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -20,27 +21,37 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar"
 import { TourButton } from "./tour-guide"
+import { CommandPalette, SearchTrigger } from "./command-palette"
 
 export function DashboardSidebar() {
   const pathname = usePathname()
+  const [commandOpen, setCommandOpen] = useState(false)
 
   return (
-    <Sidebar className="shadow-lg border-r border-border">
-      <SidebarHeader className="border-b">
-        <div className="flex h-[60px] items-center px-4 md:px-6">
-          <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
-            <div className="bg-orange-500 p-1.5 rounded">
-              <BarChart3 className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl">Analytics</span>
-          </Link>
-          <Button variant="outline" size="icon" className="ml-auto h-8 w-8 md:hidden">
-            <Bell className="h-4 w-4" />
-            <span className="sr-only">Notifications</span>
-          </Button>
-        </div>
-      </SidebarHeader>
-      <SidebarContent>
+    <>
+      <Sidebar className="shadow-lg border-r border-border bg-white/95 dark:bg-slate-950/95 backdrop-blur-sm">
+        <SidebarHeader className="border-b border-slate-200 dark:border-slate-800">
+          <div className="flex h-[60px] items-center px-4 md:px-6">
+            <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+              <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-1.5 rounded-xl shadow-lg">
+                <BarChart3 className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-xl bg-gradient-to-r from-slate-900 to-slate-600 dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
+                Analytics
+              </span>
+            </Link>
+            <Button variant="outline" size="icon" className="ml-auto h-8 w-8 md:hidden rounded-xl border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm">
+              <Bell className="h-4 w-4" />
+              <span className="sr-only">Notifications</span>
+            </Button>
+          </div>
+        </SidebarHeader>
+        <SidebarContent className="bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm">
+
+        {/* Search Bar */}
+        <div className="px-4 pb-2 pt-4">
+            <SearchTrigger onClick={() => setCommandOpen(true)} />
+          </div>
         {/* Company Section */}
         <SidebarGroup className="sidebar-company-group">
           <SidebarGroupLabel>Company</SidebarGroupLabel>
@@ -180,23 +191,27 @@ export function DashboardSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter className="border-t p-4">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
-              <User className="h-4 w-4" />
+        </SidebarContent>
+        <SidebarFooter className="border-t border-slate-200 dark:border-slate-800 p-4 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800">
+              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg">
+                <User className="h-4 w-4 text-white" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-slate-900 dark:text-slate-100">Admin User</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">admin@loginware.com</span>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">Admin User</span>
-              <span className="text-xs text-muted-foreground">admin@loginware.com</span>
-            </div>
+            <TourButton />
           </div>
-          <TourButton />
-        </div>
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
+        </SidebarFooter>
+        <SidebarRail />
+      </Sidebar>
+      
+      {/* Command Palette */}
+      <CommandPalette open={commandOpen} setOpen={setCommandOpen} />
+    </>
   )
 }
 
