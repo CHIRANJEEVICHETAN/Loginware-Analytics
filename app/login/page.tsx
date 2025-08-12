@@ -191,7 +191,7 @@ export default function LoginPage() {
                 <Image src="/Eagle-Logo.png" alt="Eagle Logo" width="100" height="100" />
               </div> */}
               <div>
-                <Image src="/Eagle-Logo.png" alt="Eagle Logo" width="75" height="75" />
+                <Image src="/Eagle-Logo.png" alt="Eagle Logo" width="75" height="75"  />
               </div>
               <div>
                 <BlurText
