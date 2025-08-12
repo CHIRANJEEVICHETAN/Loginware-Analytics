@@ -169,7 +169,7 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
             <React.Fragment key={group.group}>
               <CommandGroup
                 heading={group.group}
-                className={`text-slate-700 dark:text-slate-300 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-slate-500 dark:[&_[cmdk-group-heading]]:text-slate-400 ${groupIndex > 0 ? 'mt-6' : ''}`}
+                className={`text-slate-700 dark:text-slate-300 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-slate-500 dark:[&_[cmdk-group-heading]]:text-slate-400 gap-4 ${groupIndex > 0 ? 'mt-6' : ''}`}
               >
                 {group.items.map((item) => (
                   <CommandItem

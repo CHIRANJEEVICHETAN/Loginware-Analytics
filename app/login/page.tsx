@@ -2,10 +2,10 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { BarChart3, Loader2, LockKeyhole, Mail, ArrowLeft, Shield, Zap, TrendingUp } from "lucide-react"
+import { BarChart3, Loader2, LockKeyhole, Mail, ArrowLeft, Shield, Zap, TrendingUp, ChevronLeft, ChevronRight, Activity, Gauge, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -20,8 +20,98 @@ import { motion } from "framer-motion"
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Feature carousel data
+  const features = [
+    {
+      icon: BarChart3,
+      title: "Real-time Monitoring",
+      description: "Track machine status and performance in real-time",
+      gradient: "from-blue-500 to-cyan-500",
+      bgGradient: "from-blue-500/10 to-cyan-500/10"
+    },
+    {
+      icon: TrendingUp,
+      title: "OEE Analysis",
+      description: "Comprehensive OEE metrics at all levels",
+      gradient: "from-green-500 to-emerald-500",
+      bgGradient: "from-green-500/10 to-emerald-500/10"
+    },
+    {
+      icon: Shield,
+      title: "Predictive Maintenance",
+      description: "AI-powered alerts for potential failures",
+      gradient: "from-purple-500 to-pink-500",
+      bgGradient: "from-purple-500/10 to-pink-500/10"
+    },
+    {
+      icon: Activity,
+      title: "Performance Analytics",
+      description: "Deep insights into production efficiency",
+      gradient: "from-orange-500 to-red-500",
+      bgGradient: "from-orange-500/10 to-red-500/10"
+    },
+    {
+      icon: Gauge,
+      title: "Quality Control",
+      description: "Automated quality monitoring and reporting",
+      gradient: "from-indigo-500 to-purple-500",
+      bgGradient: "from-indigo-500/10 to-purple-500/10"
+    },
+    {
+      icon: AlertTriangle,
+      title: "Alert Management",
+      description: "Smart notifications for critical events",
+      gradient: "from-yellow-500 to-orange-500",
+      bgGradient: "from-yellow-500/10 to-orange-500/10"
+    }
+  ]
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (!isHovered) {
+      intervalRef.current = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % features.length)
+      }, 4000) // 4 seconds per slide
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [isHovered, features.length])
+
+  // Navigation functions
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index)
+  }
+
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + features.length) % features.length)
+  }
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % features.length)
+  }
+
+  // Keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      goToPrevious()
+    } else if (e.key === 'ArrowRight') {
+      goToNext()
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,21 +133,21 @@ export default function LoginPage() {
       {/* Modern Tech Background */}
       <ModernTechBackground className="opacity-60 z-0" />
 
-      {/* Splash Cursor Effect - Less Intense */}
+      {/* Splash Cursor Effect - Reduced Intensity */}
       <SplashCursor
-        SIM_RESOLUTION={64}
-        DYE_RESOLUTION={512}
-        CAPTURE_RESOLUTION={256}
-        DENSITY_DISSIPATION={5.0}
-        VELOCITY_DISSIPATION={3.0}
-        PRESSURE={0.05}
-        PRESSURE_ITERATIONS={15}
-        CURL={2}
-        SPLAT_RADIUS={0.15}
-        SPLAT_FORCE={3000}
+        SIM_RESOLUTION={32}
+        DYE_RESOLUTION={256}
+        CAPTURE_RESOLUTION={128}
+        DENSITY_DISSIPATION={8.0}
+        VELOCITY_DISSIPATION={5.0}
+        PRESSURE={0.02}
+        PRESSURE_ITERATIONS={10}
+        CURL={1}
+        SPLAT_RADIUS={0.08}
+        SPLAT_FORCE={1500}
         SHADING={true}
-        COLOR_UPDATE_SPEED={5}
-        BACK_COLOR={{ r: 0.3, g: 0, b: 0 }}
+        COLOR_UPDATE_SPEED={3}
+        BACK_COLOR={{ r: 0.1, g: 0, b: 0 }}
         TRANSPARENT={true}
       />
 
@@ -123,51 +213,125 @@ export default function LoginPage() {
 
 
 
-            {/* Feature Grid */}
+            {/* Dynamic Feature Carousel */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="grid grid-cols-1 gap-3 mb-6"
+              className="relative mb-6 px-12"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              onKeyDown={handleKeyDown}
+              tabIndex={0}
+              role="region"
+              aria-label="Feature showcase carousel"
             >
-              <div className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 p-2 shadow-lg">
-                    <BarChart3 className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white mb-1 text-sm">Real-time Monitoring</h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Track machine status and performance in real-time</p>
-                  </div>
-                </div>
+              {/* Navigation Arrows - Outside the card */}
+              <button
+                onClick={goToPrevious}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 hover:text-white hover:border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                aria-label="Previous feature"
+              >
+                <ChevronLeft className="h-4 w-4 text-slate-600 dark:text-slate-400 transition-colors" />
+              </button>
+
+              <button
+                onClick={goToNext}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 hover:text-white hover:border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                aria-label="Next feature"
+              >
+                <ChevronRight className="h-4 w-4 text-slate-600 dark:text-slate-400 transition-colors" />
+              </button>
+
+              {/* Overlapping Carousel Container */}
+              <div className="relative h-48 w-full">
+                {features.map((feature, index) => {
+                  const IconComponent = feature.icon
+                  const isActive = index === currentSlide
+                  const isPrevious = index === (currentSlide - 1 + features.length) % features.length
+                  const isNext = index === (currentSlide + 1) % features.length
+                  
+                  // Calculate position and visibility
+                  let translateX = 0
+                  let zIndex = 1
+                  let opacity = 0.3
+                  let scale = 0.85
+                  
+                  if (isActive) {
+                    translateX = 0
+                    zIndex = 30
+                    opacity = 1
+                    scale = 1
+                  } else if (isPrevious) {
+                    translateX = -60
+                    zIndex = 20
+                    opacity = 0.3
+                    scale = 0.85
+                  } else if (isNext) {
+                    translateX = 60
+                    zIndex = 20
+                    opacity = 0.3
+                    scale = 0.85
+                  } else {
+                    // Hide other cards completely
+                    opacity = 0
+                    scale = 0.7
+                  }
+
+                  return (
+                    <div
+                      key={index}
+                      className="absolute inset-0 transition-all duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+                      style={{
+                        transform: `translateX(${translateX}%) scale(${scale})`,
+                        zIndex,
+                        opacity,
+                      }}
+                      role="tabpanel"
+                      aria-label={`Feature ${index + 1}: ${feature.title}`}
+                      aria-hidden={!isActive}
+                    >
+                      <div className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm shadow-lg h-full cursor-pointer"
+                           onClick={() => !isActive && goToSlide(index)}>
+                        <div className={`absolute inset-0 bg-gradient-to-r ${feature.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center p-6">
+                          <div className={`rounded-full bg-gradient-to-r ${feature.gradient} p-3 shadow-lg mb-3 transition-transform duration-300 ${isActive ? 'group-hover:scale-110' : ''}`}>
+                            <IconComponent className="h-6 w-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-slate-900 dark:text-white mb-2 text-base">{feature.title}</h3>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{feature.description}</p>
+                          </div>
+                        </div>
+                        
+                        {/* Subtle indicator for inactive cards */}
+                        {!isActive && (isPrevious || isNext) && (
+                          <div className="absolute inset-0 bg-slate-900/10 dark:bg-slate-100/5 pointer-events-none" />
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
 
-              <div className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className="rounded-full bg-gradient-to-r from-green-500 to-emerald-500 p-2 shadow-lg">
-                    <TrendingUp className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white mb-1 text-sm">OEE Analysis</h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Comprehensive OEE metrics at all levels</p>
-                  </div>
-                </div>
+              {/* Progress Indicator */}
+              <div className="flex justify-center mt-4 gap-2" role="tablist" aria-label="Feature navigation">
+                {features.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`h-1.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${index === currentSlide
+                        ? 'w-8 bg-gradient-to-r from-cyan-500 to-blue-500'
+                        : 'w-1.5 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
+                      }`}
+                    role="tab"
+                    aria-selected={index === currentSlide}
+                    aria-label={`Go to feature ${index + 1}`}
+                  />
+                ))}
               </div>
 
-              <div className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className="rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-2 shadow-lg">
-                    <Shield className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white mb-1 text-sm">Predictive Maintenance</h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">AI-powered alerts for potential failures</p>
-                  </div>
-                </div>
-              </div>
+
             </motion.div>
 
             {/* Stats */}
