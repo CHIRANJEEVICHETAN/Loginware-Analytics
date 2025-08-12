@@ -17,6 +17,7 @@ import SplashCursor from "@/components/splash-cursor"
 import ModernTechBackground from "@/components/modern-tech-background"
 import BlurText from "@/components/blur-text"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -77,7 +78,7 @@ export default function LoginPage() {
     if (!isHovered) {
       intervalRef.current = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % features.length)
-      }, 4000) // 4 seconds per slide
+      }, 1500) // 1.5 seconds per slide
     } else {
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
@@ -134,22 +135,22 @@ export default function LoginPage() {
       <ModernTechBackground className="opacity-60 z-0" />
 
       {/* Splash Cursor Effect - Reduced Intensity */}
-      <SplashCursor
-        SIM_RESOLUTION={32}
-        DYE_RESOLUTION={256}
-        CAPTURE_RESOLUTION={128}
-        DENSITY_DISSIPATION={8.0}
-        VELOCITY_DISSIPATION={5.0}
-        PRESSURE={0.02}
-        PRESSURE_ITERATIONS={10}
-        CURL={1}
-        SPLAT_RADIUS={0.08}
-        SPLAT_FORCE={1500}
-        SHADING={true}
-        COLOR_UPDATE_SPEED={3}
-        BACK_COLOR={{ r: 0.1, g: 0, b: 0 }}
-        TRANSPARENT={true}
-      />
+      {/* <SplashCursor
+        // SIM_RESOLUTION={32}
+        // DYE_RESOLUTION={256}
+        // CAPTURE_RESOLUTION={128}
+        // DENSITY_DISSIPATION={8.0}
+        // VELOCITY_DISSIPATION={5.0}
+        // PRESSURE={0.02}
+        // PRESSURE_ITERATIONS={10}
+        // CURL={1}
+        // SPLAT_RADIUS={0.08}
+        // SPLAT_FORCE={1500}
+        // SHADING={true}
+        // COLOR_UPDATE_SPEED={3}
+        // BACK_COLOR={{ r: 0.1, g: 0, b: 0 }}
+        // TRANSPARENT={true}
+      /> */}
 
       {/* Navigation Header */}
       <motion.div
@@ -177,16 +178,20 @@ export default function LoginPage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="hidden lg:flex w-1/2 flex-col justify-center items-center p-8 relative"
         >
-          <div className="max-w-lg relative z-20">
+          <div className="max-w-2xl relative z-20">
             {/* Logo and Brand */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex items-center gap-3 mb-8"
+              className="flex items-center gap-4 mb-12"
             >
-              <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-3 rounded-2xl shadow-lg">
-                <BarChart3 className="h-8 w-8 text-white" />
+              {/* <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 rounded-2xl shadow-lg">
+                <BarChart3 className="h-10 w-10 text-white" />
+                <Image src="/Eagle-Logo.png" alt="Eagle Logo" width="100" height="100" />
+              </div> */}
+              <div>
+                <Image src="/Eagle-Logo.png" alt="Eagle Logo" width="75" height="75" />
               </div>
               <div>
                 <BlurText
@@ -195,7 +200,7 @@ export default function LoginPage() {
                   animateBy="words"
                   direction="top"
                   startImmediately={true}
-                  className="text-3xl font-bold text-slate-900 dark:text-slate-300"
+                  className="text-4xl font-bold text-slate-900 dark:text-slate-300"
                 />
                 <div className="flex items-center gap-2 mt-1">
                   <Zap className="h-3 w-3 text-cyan-500" />
@@ -218,7 +223,7 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="relative mb-6 px-12"
+              className="relative mb-8 px-16"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               onKeyDown={handleKeyDown}
@@ -244,7 +249,7 @@ export default function LoginPage() {
               </button>
 
               {/* Overlapping Carousel Container */}
-              <div className="relative h-48 w-full">
+              <div className="relative h-64 w-full">
                 {features.map((feature, index) => {
                   const IconComponent = feature.icon
                   const isActive = index === currentSlide
@@ -294,13 +299,13 @@ export default function LoginPage() {
                       <div className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm shadow-lg h-full cursor-pointer"
                            onClick={() => !isActive && goToSlide(index)}>
                         <div className={`absolute inset-0 bg-gradient-to-r ${feature.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center p-6">
-                          <div className={`rounded-full bg-gradient-to-r ${feature.gradient} p-3 shadow-lg mb-3 transition-transform duration-300 ${isActive ? 'group-hover:scale-110' : ''}`}>
-                            <IconComponent className="h-6 w-6 text-white" />
+                        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center p-8">
+                          <div className={`rounded-full bg-gradient-to-r ${feature.gradient} p-4 shadow-lg mb-4 transition-transform duration-300 ${isActive ? 'group-hover:scale-110' : ''}`}>
+                            <IconComponent className="h-8 w-8 text-white" />
                           </div>
                           <div>
-                            <h3 className="font-bold text-slate-900 dark:text-white mb-2 text-base">{feature.title}</h3>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{feature.description}</p>
+                            <h3 className="font-bold text-slate-900 dark:text-white mb-3 text-lg">{feature.title}</h3>
+                            <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed">{feature.description}</p>
                           </div>
                         </div>
                         
@@ -339,14 +344,14 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
-              className="flex items-center gap-8 text-sm text-slate-600 dark:text-slate-400"
+              className="flex items-center gap-10 text-base text-slate-600 dark:text-slate-400"
             >
               <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <Shield className="h-5 w-5 text-green-600 dark:text-green-400" />
                 <span>Enterprise Security</span>
               </div>
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+                <TrendingUp className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
                 <span>99.9% Uptime</span>
               </div>
             </motion.div>
