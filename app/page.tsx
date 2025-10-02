@@ -19,6 +19,8 @@ import { motion } from "framer-motion";
 import Navigation from "@/components/landing-navbar";
 import SplashCursor from "@/components/splash-cursor";
 import ModernTechBackground from "@/components/modern-tech-background";
+import CustomPointer from "@/components/custom-pointer";
+import PointerDemo from "@/components/pointer-demo";
 
 export default function LandingPage() {
   const { theme } = useTheme();
@@ -46,6 +48,20 @@ export default function LandingPage() {
         // BACK_COLOR={{ r: 0.5, g: 0, b: 0 }}
         // TRANSPARENT={true}
       />
+
+      {/* Custom Glowing Pointer */}
+      <CustomPointer 
+        style="auto"
+        size="medium"
+        color="auto"
+        intensity="medium"
+        className="z-50"
+      />
+
+      {/* Pointer Demo Controls - Only show in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <PointerDemo className="z-50" />
+      )}
 
       {/* Modern Glassmorphic Navigation */}
       <motion.div
