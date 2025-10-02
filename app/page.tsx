@@ -33,24 +33,24 @@ export default function LandingPage() {
 
       {/* Splash Cursor Effect */}
       <SplashCursor
-        // SIM_RESOLUTION={128}
-        // DYE_RESOLUTION={1440}
-        // CAPTURE_RESOLUTION={512}
-        // DENSITY_DISSIPATION={3.5}
-        // VELOCITY_DISSIPATION={2}
-        // PRESSURE={0.1}
-        // PRESSURE_ITERATIONS={20}
-        // CURL={3}
-        // SPLAT_RADIUS={0.2}
-        // SPLAT_FORCE={6000}
-        // SHADING={true}
-        // COLOR_UPDATE_SPEED={10}
-        // BACK_COLOR={{ r: 0.5, g: 0, b: 0 }}
-        // TRANSPARENT={true}
+      // SIM_RESOLUTION={128}
+      // DYE_RESOLUTION={1440}
+      // CAPTURE_RESOLUTION={512}
+      // DENSITY_DISSIPATION={3.5}
+      // VELOCITY_DISSIPATION={2}
+      // PRESSURE={0.1}
+      // PRESSURE_ITERATIONS={20}
+      // CURL={3}
+      // SPLAT_RADIUS={0.2}
+      // SPLAT_FORCE={6000}
+      // SHADING={true}
+      // COLOR_UPDATE_SPEED={10}
+      // BACK_COLOR={{ r: 0.5, g: 0, b: 0 }}
+      // TRANSPARENT={true}
       />
 
       {/* Custom Glowing Pointer */}
-      <CustomPointer 
+      <CustomPointer
         style="auto"
         size="medium"
         color="auto"
@@ -59,7 +59,7 @@ export default function LandingPage() {
       />
 
       {/* Pointer Demo Controls - Only show in development */}
-      {process.env.NODE_ENV === 'development' && (
+      {process.env.NEXT_PUBLIC_SHOW_DEMO === 'true' && (
         <PointerDemo className="z-50" />
       )}
 
